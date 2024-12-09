@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             x:Class="BachelorProjectII.PresentationLayer.Views.VaelgapotekPage"
+             IconImageSource="browse"
+             Title="VaelgapotekPage">
+
+    <Shell.TitleView>
+        <Grid>
+            <dx:DXButton Margin="-5,0,0,0" WidthRequest="45" HeightRequest="45" Command="{Binding ReturnCommand}" BackgroundColor="Transparent" HorizontalOptions="Start">
+                <Image WidthRequest="35" HeightRequest="35" Source="return_arrow.svg" />
+            </dx:DXButton>
+            <Label  Style="{StaticResource TitleStyle}" Text="Søg efter apotek"/>
+        </Grid>
+    </Shell.TitleView>
+    
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" />
+    </Shell.BackButtonBehavior>
+    <!-- Brug Grid til at strukturere siden med CollectionView som scrollerbart område og knappen fast i bunden -->
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- Søgefelt -->
+        <VerticalStackLayout Grid.Row="0">
+
+            <Frame HasShadow="True" BackgroundColor="#E4E6E5" Padding="2" CornerRadius="30"  WidthRequest="375"
+                HorizontalOptions="Center" VerticalOptions="Center">
+                <HorizontalStackLayout WidthRequest="375" VerticalOptions="Center">
+                    <SearchBar Placeholder="Søg efter apotek..."
+                            SearchButtonPressed="OnSearchButtonPressed"
+                            TextChanged="OnTextChanged"
+                            Margin="5"
+                            WidthRequest="340" HorizontalOptions="Start"
+                            />
+                </HorizontalStackLayout>
+            </Frame>
+            <!-- indhold under søgefeltet -->
+            <Label Margin="15,5,0,0" Text="Apoteket vises her..." 
+               x:Name="SearchResultLabel" />
+
+        </VerticalStackLayout>
+
+        <!-- CollectionView med apoteker som kan scrolleres -->
+        <CollectionView ItemsSource="{Binding FilteredApoteker}"
+                        HorizontalOptions="FillAndExpand"
+                        Margin="10"
+                        Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <dx:DXButton Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.ItemSelectedCommand}" 
+                                 CommandParameter="{Binding .}">
+                        <HorizontalStackLayout Margin="2" VerticalOptions="Fill">
+                            <VerticalStackLayout>
+                                <Label Style="{StaticResource ButtonLabelStyle}" FontAttributes="Bold" Text="{Binding ApotekNavn}" />
+                                <Label Style="{StaticResource ButtonLabelStyle}" LineBreakMode="WordWrap" Text="{Binding Adresse}" />
+                                <Label Style="{StaticResource ButtonLabelStyle}" Text="{Binding TelefonNummer}" />
+                            </VerticalStackLayout>
+                            <Image Style="{StaticResource ButtonImageStyle}" Grid.Row="1">
+                                <Image.Triggers>
+                                    <!-- Når IndlaegsseddelExpanded er true, sættes dropdown icon til arrow_up -->
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsSelected}" Value="false">
+                                        <Setter Property="Source" Value="button_unchecked.svg"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Image" Binding="{Binding IsSelected}" Value="true">
+                                        <Setter Property="Source" Value="button_checked.svg"/>
+                                    </DataTrigger>
+                                </Image.Triggers>
+                            </Image>
+                        </HorizontalStackLayout>
+                    </dx:DXButton>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Fast knap nederst i skærmen -->
+        <dx:DXButton Style="{StaticResource darkbutton}"
+                     Clicked="OnSkiftValgtApotekButtonClicked"
+                     IsEnabled="{Binding SkiftApotekButtonEnabled}"
+                     HorizontalOptions="FillAndExpand"
+                     Margin="20,0,20,10"
+                     Grid.Row="2">
+            <Label FontAttributes="Bold" TextColor="white" Text="Vælg dit fortrukne apotek" HorizontalOptions="Center" VerticalOptions="Center" />
+        </dx:DXButton>
+
+    </Grid>
+</ContentPage>

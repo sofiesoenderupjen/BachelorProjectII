@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BachelorProjectII", "BachelorProjektII\BachelorProjectII.csproj", "{C257E326-6095-4A60-83F2-1572745D6AAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTests", "NUnitTests\NUnitTests.csproj", "{90477526-FCD9-4B48-8173-7764D0ECA71D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C257E326-6095-4A60-83F2-1572745D6AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C257E326-6095-4A60-83F2-1572745D6AAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C257E326-6095-4A60-83F2-1572745D6AAC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C257E326-6095-4A60-83F2-1572745D6AAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C257E326-6095-4A60-83F2-1572745D6AAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C257E326-6095-4A60-83F2-1572745D6AAC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{90477526-FCD9-4B48-8173-7764D0ECA71D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90477526-FCD9-4B48-8173-7764D0ECA71D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90477526-FCD9-4B48-8173-7764D0ECA71D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90477526-FCD9-4B48-8173-7764D0ECA71D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFDE0BD3-082B-4376-A939-E8C792D34E43}
+	EndGlobalSection
+EndGlobal

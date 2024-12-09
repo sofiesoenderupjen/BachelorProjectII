@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             IconImageSource="browse"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="BachelorProjectII.PresentationLayer.Views.MinProfilPage">
+    <Shell.TitleView>
+        <Grid>
+            <Label Style="{StaticResource TitleStyle}" Text="Min profil"  />
+            <dx:DXButton Margin="-5,0,0,0" WidthRequest="45" HeightRequest="45" Command="{Binding ReturnCommand}" BackgroundColor="Transparent" HorizontalOptions="Start">
+                <Image WidthRequest="35" HeightRequest="35" Source="return_arrow.svg" />
+            </dx:DXButton>
+        </Grid>
+    </Shell.TitleView>
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" />
+    </Shell.BackButtonBehavior>
+    <VerticalStackLayout Margin="15, 0, 10, 0">
+        <Label FontSize="18" Margin="0, 0, 0, 2"  Style="{StaticResource PrimaryText}" Text="{Binding CurrentPerson.Navn}"/>
+        <Label FontSize="16" Style="{StaticResource SecondaryText}" Text="{Binding CurrentPerson.Alder, StringFormat='Alder: {0} år'}"/>
+        <Label FontSize="16" Style="{StaticResource SecondaryText}" Text="{Binding CurrentPerson.Fodselsdato, StringFormat='Fødselsdato: {0}'}"/>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+         xmlns:local="clr-namespace:BachelorProjectII.PresentationLayer.Views"
+         x:Class="BachelorProjectII.PresentationLayer.Views.MainPage" Shell.FlyoutBehavior="Disabled">
+
+    <!-- TabBar med fem faner -->
+    <TabBar>
+        <Tab Title="Forside" Icon="house">
+            <ShellContent ContentTemplate="{DataTemplate local:ForsidePage}" Route="forsidePage"/>
+        </Tab>
+        <Tab Title="Mine Indlægssedler" Icon="popup">
+            <ShellContent ContentTemplate="{DataTemplate local:MineIndlaegssedlerPage}" Route="mineIndlaegssedlerPage"/>
+        </Tab>
+        <Tab Title="Søg" Icon="search">
+            <ShellContent ContentTemplate="{DataTemplate local:SogPage}" Route="sogPage"/>
+        </Tab>
+        <Tab Title="Mit Apotek" Icon="farma">
+            <ShellContent ContentTemplate="{DataTemplate local:DitvalgteapotekPage}" Route="ditvaelgteapotekPage"/>
+        </Tab>
+        <Tab Title="Mere" Icon="more">
+            <ShellContent ContentTemplate="{DataTemplate local:MerePage}" Route="merePage"/>
+        </Tab>
+    </TabBar>
+
+    <!-- FlyoutItems som tilgås fra andre sider -->
+
+    <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" Route= "loginPage"  />
+    <ShellContent ContentTemplate="{DataTemplate local:PinkodeLoginPage}" Route= "pinkodeLoginPage" />
+</Shell>
+

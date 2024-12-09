@@ -1,0 +1,94 @@
+# Pipeline to build .NET MAUI apps for Android
+
+name: Build .NET MAUI Android app
+
+trigger:
+  branches:
+    include:
+    - master
+
+# Define variables
+variables:
+- name: 'BUILD_CONFIGURATION'
+  value: 'Release'
+- name: 'DOTNET_VERSION'
+  value: '8.0.x'
+- name: 'FRAMEWORK_ANDROID'
+  value: 'net8.0-android'
+- name: 'SOLUTION_PATH'
+  value: 'BachelorProjektII'
+- name: 'PROJECT_PATH'
+  value: 'BachelorProjektII/BachelorProjektII.csproj'
+- name: 'ARTIFACT_ANDROID_DROP_NAME'
+  value: 'drop-android'
+- group: 'BachelorProjektIIGroup'
+
+
+stages:
+
+- stage: BuildMAUIApps
+
+  jobs:
+
+  - job: BuildMAUIAndroid
+    displayName: Build Android App
+    pool:
+      vmImage: 'windows-2022'
+      demands:
+      - MSBuild
+    
+    steps:
+      - task: UseDotNet@2
+        displayName: .NET Version
+        inputs:
+          packageType: 'sdk'
+          version: '$(DOTNET_VERSION)'
+      
+      - task: CmdLine@2
+        displayName: Install MAUI
+        inputs:
+          script: |
+            dotnet nuget locals all --clear 
+            dotnet workload install maui
+
+      - task: DownloadSecureFile@1
+        displayName: Download keystore file 
+        name: keystore
+        inputs:
+          secureFile: '$(KeyStore-FileName)'
+
+      - task: CmdLine@2
+        displayName: Move Keystore to Working Directory
+        inputs: 
+          script: |
+            mv $(keystore.secureFilePath) $(System.DefaultWorkingDirectory)
+
+      - task: CmdLine@2
+        displayName: Build App
+        inputs:
+          script: |
+            cd $(SOLUTION_PATH)
+            dotnet publish $(PROJECT_PATH)
+            -f $(FRAMEWORK_ANDROID)
+            -c $(BUILD_CONFIGURATION)
+            /p:AndroidSigningKeyPass=$(KeyStore-Password)
+            /p:AndroidSigningStorePass=$(KeyStore-Password)
+            /p:AndroidSigningKeyStore=$(System.DefaultWorkingDirectory)\\$(KeyStore-FileName)
+            /p:AndroidSigningKeyAlias=$(KeyStore-Alias)
+            /p:AndroidKeyStore=true
+
+      - task: CopyFiles@2
+        displayName: Copy APK and AAB
+        inputs:
+          Contents: |
+            **\*Signed.apk
+            **\*Signed.aab
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+          flattenFolders: true
+          
+      - task: PublishBuildArtifacts@1
+        displayName: Publish APK und AAB
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: '$(ARTIFACT_ANDROID_DROP_NAME)'
+          publishLocation: 'Container'   

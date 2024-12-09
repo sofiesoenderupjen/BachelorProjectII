@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             IconImageSource="browse"
+             x:Class="BachelorProjectII.PresentationLayer.Views.SogPage"            
+             Title="SogPage">
+            <Shell.TitleView>
+                <Grid>
+            <Label Text="Søg" Style="{StaticResource TitleStyle}" />
+                </Grid>
+            </Shell.TitleView>
+
+    <VerticalStackLayout>
+        <!-- Søgefelt -->
+        <Frame BackgroundColor="#E4E6E5" Padding="5" CornerRadius="30" HasShadow="True" WidthRequest="375">
+            <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="375">
+
+                <SearchBar Grid.Column="0"
+                Placeholder="Søg eller scan efter indlægseddel..."
+                SearchButtonPressed="OnSearchButtonPressed"
+                TextChanged="OnTextChanged"
+                WidthRequest="300" HorizontalOptions="Start"/>
+
+                <!-- Scanbutton -->
+                <dx:DXButton
+                BackgroundColor="Transparent"
+                Clicked="OnScanButtonClicked"
+                WidthRequest="50"
+                HeightRequest="40"
+                HorizontalOptions="Center"
+                VerticalOptions="Start">
+                    <Image
+                    Grid.Column="1"
+                    Source="barcode.svg"
+                    WidthRequest="35"
+                    HeightRequest="35"
+                    VerticalOptions="Center"/>
+                </dx:DXButton>
+
+        </HorizontalStackLayout>
+        </Frame>
+
+        <!-- indhold under søgefeltet -->
+        <Label Margin="15,5,0,0" Text="Indlægsedlen vises her..." 
+               x:Name="SearchResultLabel" />
+        
+        <!-- data fra 'filteredindlagssedler' observable collection (en collection af IndlaegsseddelModel)-->
+        <VerticalStackLayout HeightRequest="560">
+            <CollectionView HeightRequest="560" VerticalScrollBarVisibility="Always" ItemsSource="{Binding FilteredIndlaegssedler}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                        Margin="10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <dx:DXButton Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.ItemSelectedCommand}" 
+                            CommandParameter="{Binding .}" >
+                            <HorizontalStackLayout Margin="5" VerticalOptions="Fill">
+                                <VerticalStackLayout>
+                                    <Label Style="{StaticResource ButtonLabelStyle}" FontAttributes="Bold" Text="{Binding Navn}" Grid.Row="0" />
+                                    <Label Style="{StaticResource ButtonLabelStyle}" Text="{Binding FormOgStyrke}" Grid.Row="1"/>
+                                    <Label Style="{StaticResource ButtonLabelStyle}" Text="{Binding Virksomhed}" Grid.Row="2"/>
+                                </VerticalStackLayout>
+                                <Image Source="arrow_right.svg" 
+                                Style="{StaticResource ButtonImageStyle}" 
+                                Grid.Row="1"/>
+                            </HorizontalStackLayout>
+
+                        </dx:DXButton>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+      </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

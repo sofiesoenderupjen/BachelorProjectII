@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="BachelorProjectII.PresentationLayer.Views.DetaljerPage"
+             >
+    <Shell.TitleView>
+        <Grid>
+            <dx:DXButton Margin="-5,0,0,0" WidthRequest="45" HeightRequest="45" Command="{Binding ReturnCommand}" BackgroundColor="Transparent" HorizontalOptions="Start">
+                <Image WidthRequest="35" HeightRequest="35" Source="return_arrow.svg" />
+            </dx:DXButton>
+            <Label Style="{StaticResource TitleStyle}" Text="Detaljer" />
+            <dx:DXButton Margin="0,0,10,0" WidthRequest="45" HeightRequest="45" Command="{Binding ToggleGemteCommand}" BackgroundColor="Transparent" HorizontalOptions="End">
+                <Image WidthRequest="35" HeightRequest="35" Source="{Binding BookmarkIcon}" />
+            </dx:DXButton>
+        </Grid>
+    </Shell.TitleView>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <VerticalStackLayout Margin="10">
+
+        <!--Overordnet om indlaegsseddel-->
+        <Label FontSize="22" Margin="0, 0, 0, 2"  Style="{StaticResource PrimaryText}" Text="{Binding SelectedIndlaegsseddel.Navn}"/>
+        <Label FontSize="16" Style="{StaticResource SecondaryText}" Text="{Binding SelectedIndlaegsseddel.Virksomhed}"/>
+        <Label Margin="0, 0, 0, 10" FontSize="16" Style="{StaticResource SecondaryText}" Text="{Binding SelectedIndlaegsseddel.FormOgStyrke}"/>
+
+        <!--Indlaegsseddel dropdown-->
+        <dx:DXButton Clicked="IndlaegsseddelButton_Clicked" >
+            <dx:DXButton.Triggers>
+                <!-- Når IndlaegsseddelExpanded er true, sættes baggrundsfarven til rød -->
+                <DataTrigger TargetType="dx:DXButton" Binding="{Binding IndlaegsseddelExpanded}" Value="false">
+                    <Setter Property="BackgroundColor" Value="#E4E6E5"/>
+                </DataTrigger>
+                <DataTrigger TargetType="dx:DXButton" Binding="{Binding IndlaegsseddelExpanded}" Value="true">
+                    <Setter Property="BackgroundColor" Value="#D97171"/>
+                </DataTrigger>
+            </dx:DXButton.Triggers>
+
+            <HorizontalStackLayout Margin="2" VerticalOptions="Fill">
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource ButtonLabelStyle}" FontAttributes="Bold" Text="Indlægsseddel" Grid.Row="0" />
+                </VerticalStackLayout>
+                <Image Style="{StaticResource ButtonImageStyle}" Grid.Row="1">
+                    <Image.Triggers>
+                        <!-- Når IndlaegsseddelExpanded er true, sættes dropdown icon til arrow_up -->
+                        <DataTrigger TargetType="Image" Binding="{Binding IndlaegsseddelExpanded}" Value="false">
+                            <Setter Property="Source" Value="arrow_down.svg"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image" Binding="{Binding IndlaegsseddelExpanded}" Value="true">
+                            <Setter Property="Source" Value="arrow_up.svg"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+            </HorizontalStackLayout>
+        </dx:DXButton>
+
+        <!--Indlaegsseddel headers-->
+        <CollectionView MaximumHeightRequest="480" ItemsSource="{Binding IndlaegsseddelHeaders}" HorizontalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <dx:DXButton Margin="20,10,20,0" 
+                             Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.ItemSelectedCommand}" 
+                             CommandParameter="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.IndlaegsseddelHeaders}">
+                            <HorizontalStackLayout VerticalOptions="Fill">
+                                <VerticalStackLayout>
+                                    <Label WidthRequest="260" LineBreakMode="WordWrap" Style="{StaticResource ButtonLabelStyle}" Text="{Binding .}" />
+                                </VerticalStackLayout>
+                                <Image Source="arrow_down.svg" Style="{StaticResource ButtonImageStyle}" />
+                            </HorizontalStackLayout>
+                        </dx:DXButton>
+
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!--Lagerstatus dropdown-->
+        <dx:DXButton Clicked="LagerstatusButton_Clicked" >
+            <dx:DXButton.Triggers>
+                <!-- Når LagerStatusExpanded er true, sættes baggrundsfarven til rød -->
+                <DataTrigger TargetType="dx:DXButton" Binding="{Binding LagerStatusExpanded}" Value="false">
+                    <Setter Property="BackgroundColor" Value="#E4E6E5"/>
+                </DataTrigger>
+                <DataTrigger TargetType="dx:DXButton" Binding="{Binding LagerStatusExpanded}" Value="true">
+                    <Setter Property="BackgroundColor" Value="#D97171"/>
+                </DataTrigger>
+            </dx:DXButton.Triggers>
+
+            <HorizontalStackLayout Margin="2" VerticalOptions="Fill">
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource ButtonLabelStyle}" FontAttributes="Bold" Text="Lagerstatus" Grid.Row="0" />
+                </VerticalStackLayout>
+                <Image Source="error_circle.svg" Margin="-30,0,0,0" Style="{StaticResource ButtonImageStyle}" Grid.Row="1">
+                    <Image.Triggers>
+                        <!-- Når PaaLager_FortrukneApotek er True - altså den er på lager på fortrukne apotek, så skjules error iconet - vises altså kun hvis den ikke er på lager -->
+                        <DataTrigger TargetType="Image" Binding="{Binding PaaLager_FortrukneApotek}" Value="true">
+                            <Setter Property="IsVisible" Value="False"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+                <Image Style="{StaticResource ButtonImageStyle}" Grid.Row="1">
+                    <Image.Triggers>
+                        <!-- Når LagerStatusExpanded er true, sættes ikonet til arrow_up -->
+                        <DataTrigger TargetType="Image" Binding="{Binding LagerStatusExpanded}" Value="true">
+                            <Setter Property="Source" Value="arrow_up.svg"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Image" Binding="{Binding LagerStatusExpanded}" Value="false">
+                            <Setter Property="Source" Value="arrow_down.svg"/>
+                        </DataTrigger>
+                    </Image.Triggers>
+                </Image>
+            </HorizontalStackLayout>
+        </dx:DXButton>
+
+        <!--Lagerstatus Fortrukne Apotek-->
+        <VerticalStackLayout Margin="15" IsVisible="{Binding ShowFortrukneApotek}">
+            <Label IsVisible="{Binding ShowFortrukneApotek}" FontSize="18" Margin="0, 0, 0, 2"  Style="{StaticResource PrimaryText}" Text="{Binding FortrukneApotek.ApotekNavn}"/>
+            <Grid IsVisible="{Binding ShowFortrukneApotek}" ColumnDefinitions="*,Auto">
+                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
+                    <Label FontSize="14" Style="{StaticResource SecondaryText}" Text="{Binding FortrukneApotek.Adresse}"/>
+                    <Label Margin="0, 0, 0, 10" FontSize="14" Style="{StaticResource SecondaryText}" Text="{Binding FortrukneApotek.TelefonNummer, StringFormat='+45 {0}'}"/>
+                </VerticalStackLayout>
+                <Frame Grid.Column="1" CornerRadius="15" VerticalOptions="Start" Padding="0" Margin="0,15,5,0" HeightRequest="40">
+                    <HorizontalStackLayout VerticalOptions="Center" Margin="10,0,10,0">
+                        <Label FontSize="14" Margin="0,0,5,0" VerticalOptions="Center">
+                            <Label.Triggers>
+                                <!-- Når PaaLager_FortrukneApotek er false, sættes label til "Ikke på lager" -->
+                                <DataTrigger TargetType="Label" Binding="{Binding PaaLager_FortrukneApotek}" Value="true">
+                                    <Setter Property="Text" Value="På lager"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label" Binding="{Binding PaaLager_FortrukneApotek}" Value="false">
+                                    <Setter Property="Text" Value="Ikke på lager"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Image HorizontalOptions="End" VerticalOptions="Center" Grid.Row="1">
+                            <Image.Triggers>
+                                <!-- Når PaaLager_FortrukneApotek er false, sættes ikonet til error_circle -->
+                                <DataTrigger TargetType="Image" Binding="{Binding PaaLager_FortrukneApotek}" Value="false">
+                                    <Setter Property="Source" Value="error_circle.svg"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Image" Binding="{Binding PaaLager_FortrukneApotek}" Value="true">
+                                    <Setter Property="Source" Value="check_circle.svg"/>
+                                </DataTrigger>
+                            </Image.Triggers>
+                        </Image>
+                    </HorizontalStackLayout>
+                </Frame>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!--Lagerstatus andre Apoteker nær dig-->
+
+        <Label IsVisible="{Binding LagerStatusExpanded}" Margin="10, 0, 0, 0" FontSize="18" Style="{StaticResource PrimaryText}" Text="På lager nær dig"/>
+        <CollectionView MaximumHeightRequest="290" IsVisible="{Binding LagerStatusExpanded}" ItemsSource="{Binding ApotekerMedIndlaegsseddelPaaLager}" Margin="10,5,10,0" HorizontalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="#E4E6E5" BorderColor="#cccccc" CornerRadius="25" Margin="0, 0, 0, 15">
+                        <HorizontalStackLayout Margin="-10" VerticalOptions="Fill">
+                            <VerticalStackLayout>
+                                <Label LineBreakMode="WordWrap" Style="{StaticResource ButtonLabelStyle}" FontAttributes="Bold" Text="{Binding ApotekNavn}" Grid.Row="0" />
+                                <HorizontalStackLayout>
+                                    <VerticalStackLayout>
+                                        <Label  WidthRequest="215" LineBreakMode="WordWrap" Style="{StaticResource ButtonLabelStyle}" Text="{Binding Adresse}" Grid.Row="1"/>
+                                        <Label WidthRequest="215" LineBreakMode="WordWrap" Style="{StaticResource ButtonLabelStyle}" Text="{Binding TelefonNummer, StringFormat='+45 {0}'}" Grid.Row="1"/>
+                                    </VerticalStackLayout>
+                                    <Frame CornerRadius="15" HorizontalOptions="End" Padding="0" Margin="20,15,0,0" HeightRequest="40">
+                                        <HorizontalStackLayout Margin="5,0,5,0" >
+                                            <Label FontSize="14" HorizontalOptions="Start" Margin="0,0,5,0" VerticalOptions="Center" Text="På lager"></Label>
+                                            <Image HorizontalOptions="End" VerticalOptions="Center" Source="check_circle.svg"/>
+                                        </HorizontalStackLayout>
+                                    </Frame>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+
+                        </HorizontalStackLayout>
+                    </Frame>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!--Lagerstatus Apoteker med indlaegsedler på lager-->
+        <dx:DXButton Command="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=BindingContext.ItemSelectedCommand}" CommandParameter="{Binding .}" >
+            <HorizontalStackLayout Margin="2" VerticalOptions="Fill">
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource ButtonLabelStyle}" FontAttributes="Bold" Text="Alternativer" Grid.Row="0" />
+                </VerticalStackLayout>
+                <Image Source="arrow_down.svg" Style="{StaticResource ButtonImageStyle}" Grid.Row="1"/>
+            </HorizontalStackLayout>
+
+        </dx:DXButton>
+    </VerticalStackLayout>
+</ContentPage>

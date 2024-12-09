@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="BachelorProjectII.PresentationLayer.Views.LoginPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- Plads til billedet -->
+                <RowDefinition Height="Auto" />
+                <!-- Plads til overskriften -->
+                <RowDefinition Height="Auto" />
+                <!-- Plads til knappen -->
+            </Grid.RowDefinitions>
+
+            <!-- Første række til billedet -->
+            <StackLayout Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" Margin="0, 50, 0, 0">
+                <Image Source="logo.png" 
+                       HeightRequest="150" 
+                       WidthRequest="150" 
+                       HorizontalOptions="Center" 
+                       VerticalOptions="CenterAndExpand"
+                       Aspect="AspectFill" />
+            </StackLayout>
+
+            <!-- Anden række til overskriften -->
+            <StackLayout Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" Margin="0, 5, 0, 100">
+                <Label Text="Indlægssedlen" 
+                       Style="{StaticResource TitleStyle}" 
+                       FontSize="30" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+            </StackLayout>
+
+            <!-- Tredje række til knappen -->
+            <StackLayout Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="Center" Margin="0, 40, 0, 50">
+                <dx:DXButton Style="{StaticResource darkbutton}"  Clicked="OnLoginButtonClicked" HorizontalOptions="Center" Padding="10, 5"
+                             WidthRequest="200"
+                             HeightRequest="50">
+                    <Label TextColor="White" FontAttributes="Bold" Text="Login med MitID" HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                </dx:DXButton>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

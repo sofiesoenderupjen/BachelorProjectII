@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BachelorProjectII.PresentationLayer.Views.ForsidePage"
+             Title="ForsidePage">
+    <Shell.TitleView>
+        <Grid>
+            <Label Style="{StaticResource TitleStyle}" Text="Om indlægssedlen"  />
+        </Grid>
+    </Shell.TitleView>
+
+    <VerticalStackLayout Padding="20">
+        <Frame BackgroundColor="#E4E6E5" CornerRadius="10" Padding="15" HasShadow="True">
+            <StackLayout>
+                <!-- Bullet point 1 -->
+                <Label Text="• Denne app giver dig nem adgang til indlægssedler for medicin, både receptpligtig og gemt medicin"
+                    VerticalOptions="Start" HorizontalOptions="Start" FontSize="16" Margin="0,5,0,20"/>
+
+                <!-- Bullet point 2 -->
+                <Label Text="• Du kan søge efter medicin eller scanne stregkoder for at få detaljer om eksempelvis anvendelse, bivirkninger og opbevaring."
+                    VerticalOptions="Start" HorizontalOptions="Start" FontSize="16" Margin="0,5,0,20" />
+
+                <!-- Bullet point 3 -->
+                <Label Text="• Appen viser dig hvilke apoteker, der har din medicin."
+                    VerticalOptions="Start" HorizontalOptions="Start" FontSize="16" Margin="0,5,0,20" />
+
+                <!-- Bullet point 4 -->
+                <Label Text="• Formålet er at gøre indlægssedler lettere at forstå og tilgængelige for alle."
+                    VerticalOptions="Start" HorizontalOptions="Start" FontSize="16" Margin="0,5,0,5"/>
+            </StackLayout>
+        </Frame>
+    </VerticalStackLayout>
+</ContentPage>

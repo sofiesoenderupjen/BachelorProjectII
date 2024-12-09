@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="BachelorProjectII.PresentationLayer.Views.PinkodeLoginPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <StackLayout Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Start" Margin="0, 50, 0, 40">
+            <Image Source="logo.png" 
+       HeightRequest="150" 
+       WidthRequest="150" 
+       HorizontalOptions="Center" 
+       VerticalOptions="CenterAndExpand"
+       Aspect="AspectFill" />
+        </StackLayout>
+
+        <StackLayout Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" Margin="0, 5, 0, 10">
+            <Label Text="Velkommen" 
+           Style="{StaticResource TitleStyle}" 
+           FontSize="30" 
+           FontAttributes="Bold"
+           HorizontalOptions="Center" />
+            <Label Text="{Binding CurrentPerson.Navn}" FontSize="Large" HorizontalOptions="Center" />
+        </StackLayout>
+        
+        <StackLayout Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="Indtast din kode" HorizontalOptions="Center" FontSize="Medium" Margin="0, 5, 0, 10" />
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                <Entry x:Name="PinBox1" Text="{Binding Pin1}" MaxLength="1" IsPassword="True" 
+               Keyboard="Numeric" FontSize="24" WidthRequest="50" 
+               HorizontalTextAlignment="Center" 
+               Completed="OnPinBoxCompleted"
+               TextChanged="OnPinEntryTextChanged"/>
+                <Entry x:Name="PinBox2" Text="{Binding Pin2}" MaxLength="1" IsPassword="True" 
+               Keyboard="Numeric" FontSize="24" WidthRequest="50" 
+               HorizontalTextAlignment="Center" 
+               Completed="OnPinBoxCompleted"
+               TextChanged="OnPinEntryTextChanged"/>
+                <Entry x:Name="PinBox3" Text="{Binding Pin3}" MaxLength="1" IsPassword="True" 
+               Keyboard="Numeric" FontSize="24" WidthRequest="50" 
+               HorizontalTextAlignment="Center" 
+               Completed="OnPinBoxCompleted"
+               TextChanged="OnPinEntryTextChanged"/>
+                <Entry x:Name="PinBox4" Text="{Binding Pin4}" MaxLength="1" IsPassword="True" 
+               Keyboard="Numeric" FontSize="24" WidthRequest="50" 
+               HorizontalTextAlignment="Center" 
+               Completed="OnPinBoxCompleted"
+               TextChanged="OnPinEntryTextChanged"/>
+            </StackLayout>
+
+            <Label Text="{Binding Message}" HorizontalOptions="Center" />
+
+            <dx:DXButton Style="{StaticResource darkbutton}" Command="{Binding ConfirmCommand}" Margin="0, 30, 0, 0">
+                <Label TextColor="White" FontAttributes="Bold" Text="{Binding ConfirmButtonText}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            </dx:DXButton> 
+        </StackLayout>
+    </Grid>
+    
+</ContentPage>

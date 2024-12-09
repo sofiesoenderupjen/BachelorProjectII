@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             IconImageSource="browse"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="BachelorProjectII.PresentationLayer.Views.DitvalgteapotekPage"
+             Title="DitvalgteapotekPage">
+    <Shell.TitleView>
+        <Grid>
+            <Label Text="Mit foretrukne apotek" Style="{StaticResource TitleStyle}" />
+        </Grid>
+    </Shell.TitleView>
+
+    <VerticalStackLayout Padding="10">
+        <!-- Frame til at indramme apoteksoplysningerne -->
+        <Frame BackgroundColor="#E4E6E5" BorderColor="#cccccc" CornerRadius="25" Padding="10" Margin="0, 10, 0, 0">
+            <VerticalStackLayout>
+                <Label Margin="0,5,0,10" FontAttributes="Bold" FontSize="18" Text="{Binding ValgteApotek.ApotekNavn}" HorizontalOptions="Center" />
+                
+                <!-- Frame omkring billedet for at lave runde hjørner-->
+                <Frame CornerRadius="20" Padding="0" HasShadow="False" BorderColor="Transparent"  HeightRequest="200" 
+                WidthRequest="275">
+                    <Image Source="apotekbillede.png"
+                   Aspect="AspectFit"
+                   HeightRequest="300" 
+                   WidthRequest="300" />
+                </Frame>
+                <!---->
+
+                <HorizontalStackLayout Margin="0,20,0,0">
+                    <Image Source="location.svg"
+                        WidthRequest="30" 
+                        HeightRequest="30" 
+                        Aspect="AspectFit" 
+                        Margin="5,0,10,0"
+                        VerticalOptions="Center" />
+                    <Label FontSize="16" Text="{Binding ValgteApotek.Adresse}" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Margin="0,10,0,0">
+                    <Image Source="telephone.svg"
+                        WidthRequest="30" 
+                        HeightRequest="30" 
+                        Aspect="AspectFit" 
+                        Margin="5,0,10,0"
+                        VerticalOptions="Center" />
+                    <Label FontSize="16" Text="{Binding ValgteApotek.TelefonNummer}" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Frame>
+
+
+            <!-- Skiftfortrukneapotek-button -->
+        <dx:DXButton Style="{StaticResource darkbutton}"
+                Clicked="OnSkiftApotekButtonClicked"
+                HorizontalOptions="Center"
+                Margin="0,100,0,0"
+                Command="{Binding SkiftForetrukneApotekCommand}">
+                <Label FontAttributes="Bold" TextColor="White" Text="Skift fortrukne apotek" HorizontalOptions="Center" VerticalOptions="Center" />
+            </dx:DXButton>
+    
+    </VerticalStackLayout>
+
+
+</ContentPage>
+
+
+

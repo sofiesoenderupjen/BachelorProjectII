@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             IconImageSource="browse"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             x:Class="BachelorProjectII.PresentationLayer.Views.MerePage"
+             Title="MerePage">
+    <Shell.TitleView>
+        <Grid>
+            <Label Style="{StaticResource TitleStyle}" Text="Mere"  />
+        </Grid>
+    </Shell.TitleView>
+    <VerticalStackLayout Spacing="15" Padding="10">
+        <!-- Knap til "Min Profil" -->
+        <dx:DXButton WidthRequest="350" Margin="0,40,0,0" Clicked="OnMinProfilButtonClicked" Padding="10, 10">
+            <HorizontalStackLayout Margin="5" VerticalOptions="Center">
+                <!-- Ikon til venstre for teksten -->
+                <Image Source="person" WidthRequest="20" HeightRequest="20" Margin="2,0,10,0"/>
+                <Label HeightRequest="20" WidthRequest="270" FontAttributes="Bold" Text="Min profil" />
+                <Image WidthRequest="20" HeightRequest="20" Source="arrow_right.svg" Style="{StaticResource ButtonImageStyle}" />
+            </HorizontalStackLayout>
+        </dx:DXButton>
+
+        <!-- Knap til "Indstillinger" -->
+        <dx:DXButton WidthRequest="350" Clicked="OnIndstillingerButtonClicked" Padding="10, 10">
+            <HorizontalStackLayout Margin="5" VerticalOptions="Center">
+                <!-- Ikon til venstre for teksten -->
+                <Image Source="settings" WidthRequest="20" HeightRequest="20" Margin="0,0,10,0"/>
+                <Label HeightRequest="20" WidthRequest="270" FontAttributes="Bold" Text="Indstillinger" />
+                <Image Source="arrow_right.svg" WidthRequest="20" HeightRequest="20" />
+            </HorizontalStackLayout>
+        </dx:DXButton>
+        
+        <!-- log-ud knap -->
+        <dx:DXButton Margin="60" WidthRequest="200" Style="{StaticResource darkbutton}" Clicked="OnLogUdButtonClicked" Padding="50, 15" HorizontalOptions="Center">
+            <Label TextColor="White"
+           FontAttributes="Bold" 
+           Text="Log ud" 
+           HorizontalTextAlignment="Center" 
+           VerticalTextAlignment="Center" />
+        </dx:DXButton>
+
+    </VerticalStackLayout>
+</ContentPage>
